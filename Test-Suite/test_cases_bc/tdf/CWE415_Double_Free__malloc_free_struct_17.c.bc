@@ -1,0 +1,970 @@
+; ModuleID = '/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite/test_cases_bc/tdf/CWE415_Double_Free__malloc_free_struct_17.c.bc'
+source_filename = "/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite/src/tdf/CWE415_Double_Free__malloc_free_struct_17.c"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-unknown-linux-gnu"
+
+@.str = private unnamed_addr constant [2 x i8] c"\0A\00", align 1, !dbg !0
+@.str.1 = private unnamed_addr constant [4 x i8] c"%s\0A\00", align 1, !dbg !7
+@.str.2 = private unnamed_addr constant [25 x i8] c"Press ENTER to continue\0A\00", align 1, !dbg !12
+@.str.3 = private unnamed_addr constant [18 x i8] c"Calling good()...\00", align 1, !dbg !17
+@.str.4 = private unnamed_addr constant [16 x i8] c"Finished good()\00", align 1, !dbg !23
+@.str.5 = private unnamed_addr constant [17 x i8] c"Calling bad()...\00", align 1, !dbg !28
+@.str.6 = private unnamed_addr constant [15 x i8] c"Finished bad()\00", align 1, !dbg !33
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @MUSTALIAS(ptr noundef %p, ptr noundef %q) #0 !dbg !60 {
+entry:
+  %p.addr = alloca ptr, align 8
+  %q.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !64, metadata !DIExpression()), !dbg !65
+  store ptr %q, ptr %q.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %q.addr, metadata !66, metadata !DIExpression()), !dbg !67
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !68
+  ret void, !dbg !69
+}
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
+
+declare i32 @printf(ptr noundef, ...) #2
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @PARTIALALIAS(ptr noundef %p, ptr noundef %q) #0 !dbg !70 {
+entry:
+  %p.addr = alloca ptr, align 8
+  %q.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !71, metadata !DIExpression()), !dbg !72
+  store ptr %q, ptr %q.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %q.addr, metadata !73, metadata !DIExpression()), !dbg !74
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !75
+  ret void, !dbg !76
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @MAYALIAS(ptr noundef %p, ptr noundef %q) #0 !dbg !77 {
+entry:
+  %p.addr = alloca ptr, align 8
+  %q.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !78, metadata !DIExpression()), !dbg !79
+  store ptr %q, ptr %q.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %q.addr, metadata !80, metadata !DIExpression()), !dbg !81
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !82
+  ret void, !dbg !83
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @NOALIAS(ptr noundef %p, ptr noundef %q) #0 !dbg !84 {
+entry:
+  %p.addr = alloca ptr, align 8
+  %q.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !85, metadata !DIExpression()), !dbg !86
+  store ptr %q, ptr %q.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %q.addr, metadata !87, metadata !DIExpression()), !dbg !88
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !89
+  ret void, !dbg !90
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @EXPECTEDFAIL_MAYALIAS(ptr noundef %p, ptr noundef %q) #0 !dbg !91 {
+entry:
+  %p.addr = alloca ptr, align 8
+  %q.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !92, metadata !DIExpression()), !dbg !93
+  store ptr %q, ptr %q.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %q.addr, metadata !94, metadata !DIExpression()), !dbg !95
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !96
+  ret void, !dbg !97
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @EXPECTEDFAIL_NOALIAS(ptr noundef %p, ptr noundef %q) #0 !dbg !98 {
+entry:
+  %p.addr = alloca ptr, align 8
+  %q.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !99, metadata !DIExpression()), !dbg !100
+  store ptr %q, ptr %q.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %q.addr, metadata !101, metadata !DIExpression()), !dbg !102
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !103
+  ret void, !dbg !104
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @SAFEMALLOC(i32 noundef %n) #0 !dbg !105 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !108, metadata !DIExpression()), !dbg !109
+  %0 = load i32, ptr %n.addr, align 4, !dbg !110
+  %conv = sext i32 %0 to i64, !dbg !110
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !111
+  ret ptr %call, !dbg !112
+}
+
+; Function Attrs: nounwind allocsize(0)
+declare noalias ptr @malloc(i64 noundef) #3
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @DOUBLEFREEMALLOC(i32 noundef %n) #0 !dbg !113 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !114, metadata !DIExpression()), !dbg !115
+  %0 = load i32, ptr %n.addr, align 4, !dbg !116
+  %conv = sext i32 %0 to i64, !dbg !116
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !117
+  ret ptr %call, !dbg !118
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @PLKMALLOC(i32 noundef %n) #0 !dbg !119 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !120, metadata !DIExpression()), !dbg !121
+  %0 = load i32, ptr %n.addr, align 4, !dbg !122
+  %conv = sext i32 %0 to i64, !dbg !122
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !123
+  ret ptr %call, !dbg !124
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @NFRMALLOC(i32 noundef %n) #0 !dbg !125 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !126, metadata !DIExpression()), !dbg !127
+  %0 = load i32, ptr %n.addr, align 4, !dbg !128
+  %conv = sext i32 %0 to i64, !dbg !128
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !129
+  ret ptr %call, !dbg !130
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @CLKMALLOC(i32 noundef %n) #0 !dbg !131 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !132, metadata !DIExpression()), !dbg !133
+  %0 = load i32, ptr %n.addr, align 4, !dbg !134
+  %conv = sext i32 %0 to i64, !dbg !134
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !135
+  ret ptr %call, !dbg !136
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @NFRLEAKFP(i32 noundef %n) #0 !dbg !137 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !138, metadata !DIExpression()), !dbg !139
+  %0 = load i32, ptr %n.addr, align 4, !dbg !140
+  %conv = sext i32 %0 to i64, !dbg !140
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !141
+  ret ptr %call, !dbg !142
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @PLKLEAKFP(i32 noundef %n) #0 !dbg !143 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !144, metadata !DIExpression()), !dbg !145
+  %0 = load i32, ptr %n.addr, align 4, !dbg !146
+  %conv = sext i32 %0 to i64, !dbg !146
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !147
+  ret ptr %call, !dbg !148
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @LEAKFN(i32 noundef %n) #0 !dbg !149 {
+entry:
+  %n.addr = alloca i32, align 4
+  store i32 %n, ptr %n.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %n.addr, metadata !150, metadata !DIExpression()), !dbg !151
+  %0 = load i32, ptr %n.addr, align 4, !dbg !152
+  %conv = sext i32 %0 to i64, !dbg !152
+  %call = call noalias ptr @malloc(i64 noundef %conv) #6, !dbg !153
+  ret ptr %call, !dbg !154
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @RC_ACCESS(i32 noundef %id, i32 noundef %flags) #0 !dbg !155 {
+entry:
+  %id.addr = alloca i32, align 4
+  %flags.addr = alloca i32, align 4
+  store i32 %id, ptr %id.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %id.addr, metadata !158, metadata !DIExpression()), !dbg !159
+  store i32 %flags, ptr %flags.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %flags.addr, metadata !160, metadata !DIExpression()), !dbg !161
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str), !dbg !162
+  ret void, !dbg !163
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @CXT_THREAD(i32 noundef %thdid, ptr noundef %cxt) #0 !dbg !164 {
+entry:
+  %thdid.addr = alloca i32, align 4
+  %cxt.addr = alloca ptr, align 8
+  store i32 %thdid, ptr %thdid.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %thdid.addr, metadata !168, metadata !DIExpression()), !dbg !169
+  store ptr %cxt, ptr %cxt.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %cxt.addr, metadata !170, metadata !DIExpression()), !dbg !171
+  ret void, !dbg !172
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @TCT_ACCESS(i32 noundef %thdid, ptr noundef %cxt) #0 !dbg !173 {
+entry:
+  %thdid.addr = alloca i32, align 4
+  %cxt.addr = alloca ptr, align 8
+  store i32 %thdid, ptr %thdid.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %thdid.addr, metadata !174, metadata !DIExpression()), !dbg !175
+  store ptr %cxt, ptr %cxt.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %cxt.addr, metadata !176, metadata !DIExpression()), !dbg !177
+  ret void, !dbg !178
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @INTERLEV_ACCESS(i32 noundef %thdid, ptr noundef %cxt, ptr noundef %lev) #0 !dbg !179 {
+entry:
+  %thdid.addr = alloca i32, align 4
+  %cxt.addr = alloca ptr, align 8
+  %lev.addr = alloca ptr, align 8
+  store i32 %thdid, ptr %thdid.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %thdid.addr, metadata !182, metadata !DIExpression()), !dbg !183
+  store ptr %cxt, ptr %cxt.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %cxt.addr, metadata !184, metadata !DIExpression()), !dbg !185
+  store ptr %lev, ptr %lev.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %lev.addr, metadata !186, metadata !DIExpression()), !dbg !187
+  ret void, !dbg !188
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @LOCK(ptr noundef %lockname) #0 !dbg !189 {
+entry:
+  %lockname.addr = alloca ptr, align 8
+  store ptr %lockname, ptr %lockname.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %lockname.addr, metadata !192, metadata !DIExpression()), !dbg !193
+  ret void, !dbg !194
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @PAUSE(ptr noundef %str) #0 !dbg !195 {
+entry:
+  %str.addr = alloca ptr, align 8
+  store ptr %str, ptr %str.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %str.addr, metadata !196, metadata !DIExpression()), !dbg !197
+  %0 = load ptr, ptr %str.addr, align 8, !dbg !198
+  %call = call i32 (ptr, ...) @printf(ptr noundef @.str.1, ptr noundef %0), !dbg !199
+  %call1 = call i32 (ptr, ...) @printf(ptr noundef @.str.2), !dbg !200
+  %call2 = call i32 @getchar(), !dbg !201
+  ret void, !dbg !202
+}
+
+declare i32 @getchar() #2
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @SAFEUAFFUNC(ptr noundef %p) #0 !dbg !203 {
+entry:
+  %retval = alloca ptr, align 8
+  %p.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !207, metadata !DIExpression()), !dbg !208
+  %0 = load ptr, ptr %p.addr, align 8, !dbg !209
+  store i32 0, ptr %0, align 4, !dbg !210
+  %1 = load ptr, ptr %retval, align 8, !dbg !211
+  ret ptr %1, !dbg !211
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @UAFFUNC(ptr noundef %p) #0 !dbg !212 {
+entry:
+  %retval = alloca ptr, align 8
+  %p.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !213, metadata !DIExpression()), !dbg !214
+  %0 = load ptr, ptr %p.addr, align 8, !dbg !215
+  store i32 0, ptr %0, align 4, !dbg !216
+  %1 = load ptr, ptr %retval, align 8, !dbg !217
+  ret ptr %1, !dbg !217
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @SAFEFREE(ptr noundef %p) #0 !dbg !218 {
+entry:
+  %retval = alloca ptr, align 8
+  %p.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !219, metadata !DIExpression()), !dbg !220
+  %0 = load ptr, ptr %p.addr, align 8, !dbg !221
+  call void @free(ptr noundef %0) #7, !dbg !222
+  %1 = load ptr, ptr %retval, align 8, !dbg !223
+  ret ptr %1, !dbg !223
+}
+
+; Function Attrs: nounwind
+declare void @free(ptr noundef) #4
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local ptr @DOUBLEFREE(ptr noundef %p) #0 !dbg !224 {
+entry:
+  %retval = alloca ptr, align 8
+  %p.addr = alloca ptr, align 8
+  store ptr %p, ptr %p.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %p.addr, metadata !225, metadata !DIExpression()), !dbg !226
+  %0 = load ptr, ptr %p.addr, align 8, !dbg !227
+  call void @free(ptr noundef %0) #7, !dbg !228
+  %1 = load ptr, ptr %retval, align 8, !dbg !229
+  ret ptr %1, !dbg !229
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @deref() #0 !dbg !230 {
+entry:
+  ret void, !dbg !233
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @CWE415_Double_Free__malloc_free_struct_17_bad() #0 !dbg !234 {
+entry:
+  %i = alloca i32, align 4
+  %j = alloca i32, align 4
+  %data = alloca ptr, align 8
+  call void @llvm.dbg.declare(metadata ptr %i, metadata !235, metadata !DIExpression()), !dbg !236
+  call void @llvm.dbg.declare(metadata ptr %j, metadata !237, metadata !DIExpression()), !dbg !238
+  call void @llvm.dbg.declare(metadata ptr %data, metadata !239, metadata !DIExpression()), !dbg !240
+  store ptr null, ptr %data, align 8, !dbg !241
+  store i32 0, ptr %i, align 4, !dbg !242
+  br label %for.cond, !dbg !244
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %0 = load i32, ptr %i, align 4, !dbg !245
+  %cmp = icmp slt i32 %0, 1, !dbg !247
+  br i1 %cmp, label %for.body, label %for.end, !dbg !248
+
+for.body:                                         ; preds = %for.cond
+  %call = call ptr @DOUBLEFREEMALLOC(i32 noundef 800), !dbg !249
+  store ptr %call, ptr %data, align 8, !dbg !251
+  %1 = load ptr, ptr %data, align 8, !dbg !252
+  %cmp1 = icmp eq ptr %1, null, !dbg !254
+  br i1 %cmp1, label %if.then, label %if.end, !dbg !255
+
+if.then:                                          ; preds = %for.body
+  call void @exit(i32 noundef -1) #8, !dbg !256
+  unreachable, !dbg !256
+
+if.end:                                           ; preds = %for.body
+  %2 = load ptr, ptr %data, align 8, !dbg !258
+  %call2 = call ptr @SAFEFREE(ptr noundef %2), !dbg !259
+  br label %for.inc, !dbg !260
+
+for.inc:                                          ; preds = %if.end
+  %3 = load i32, ptr %i, align 4, !dbg !261
+  %inc = add nsw i32 %3, 1, !dbg !261
+  store i32 %inc, ptr %i, align 4, !dbg !261
+  br label %for.cond, !dbg !262, !llvm.loop !263
+
+for.end:                                          ; preds = %for.cond
+  store i32 0, ptr %j, align 4, !dbg !266
+  br label %for.cond3, !dbg !268
+
+for.cond3:                                        ; preds = %for.inc7, %for.end
+  %4 = load i32, ptr %j, align 4, !dbg !269
+  %cmp4 = icmp slt i32 %4, 1, !dbg !271
+  br i1 %cmp4, label %for.body5, label %for.end9, !dbg !272
+
+for.body5:                                        ; preds = %for.cond3
+  %5 = load ptr, ptr %data, align 8, !dbg !273
+  %call6 = call ptr @DOUBLEFREE(ptr noundef %5), !dbg !275
+  br label %for.inc7, !dbg !276
+
+for.inc7:                                         ; preds = %for.body5
+  %6 = load i32, ptr %j, align 4, !dbg !277
+  %inc8 = add nsw i32 %6, 1, !dbg !277
+  store i32 %inc8, ptr %j, align 4, !dbg !277
+  br label %for.cond3, !dbg !278, !llvm.loop !279
+
+for.end9:                                         ; preds = %for.cond3
+  ret void, !dbg !281
+}
+
+; Function Attrs: noreturn nounwind
+declare void @exit(i32 noundef) #5
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local void @CWE415_Double_Free__malloc_free_struct_17_good() #0 !dbg !282 {
+entry:
+  call void @goodB2G(), !dbg !283
+  call void @goodG2B(), !dbg !284
+  ret void, !dbg !285
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) #0 !dbg !286 {
+entry:
+  %retval = alloca i32, align 4
+  %argc.addr = alloca i32, align 4
+  %argv.addr = alloca ptr, align 8
+  store i32 0, ptr %retval, align 4
+  store i32 %argc, ptr %argc.addr, align 4
+  call void @llvm.dbg.declare(metadata ptr %argc.addr, metadata !290, metadata !DIExpression()), !dbg !291
+  store ptr %argv, ptr %argv.addr, align 8
+  call void @llvm.dbg.declare(metadata ptr %argv.addr, metadata !292, metadata !DIExpression()), !dbg !293
+  %call = call i64 @time(ptr noundef null) #7, !dbg !294
+  %conv = trunc i64 %call to i32, !dbg !295
+  call void @srand(i32 noundef %conv) #7, !dbg !296
+  call void @printLine(ptr noundef @.str.3), !dbg !297
+  call void @CWE415_Double_Free__malloc_free_struct_17_good(), !dbg !298
+  call void @printLine(ptr noundef @.str.4), !dbg !299
+  call void @printLine(ptr noundef @.str.5), !dbg !300
+  call void @CWE415_Double_Free__malloc_free_struct_17_bad(), !dbg !301
+  call void @printLine(ptr noundef @.str.6), !dbg !302
+  ret i32 0, !dbg !303
+}
+
+; Function Attrs: nounwind
+declare void @srand(i32 noundef) #4
+
+; Function Attrs: nounwind
+declare i64 @time(ptr noundef) #4
+
+declare void @printLine(ptr noundef) #2
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal void @goodB2G() #0 !dbg !304 {
+entry:
+  %i = alloca i32, align 4
+  %k = alloca i32, align 4
+  %data = alloca ptr, align 8
+  call void @llvm.dbg.declare(metadata ptr %i, metadata !305, metadata !DIExpression()), !dbg !306
+  call void @llvm.dbg.declare(metadata ptr %k, metadata !307, metadata !DIExpression()), !dbg !308
+  call void @llvm.dbg.declare(metadata ptr %data, metadata !309, metadata !DIExpression()), !dbg !310
+  store ptr null, ptr %data, align 8, !dbg !311
+  store i32 0, ptr %i, align 4, !dbg !312
+  br label %for.cond, !dbg !314
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %0 = load i32, ptr %i, align 4, !dbg !315
+  %cmp = icmp slt i32 %0, 1, !dbg !317
+  br i1 %cmp, label %for.body, label %for.end, !dbg !318
+
+for.body:                                         ; preds = %for.cond
+  %call = call ptr @SAFEMALLOC(i32 noundef 800), !dbg !319
+  store ptr %call, ptr %data, align 8, !dbg !321
+  %1 = load ptr, ptr %data, align 8, !dbg !322
+  %cmp1 = icmp eq ptr %1, null, !dbg !324
+  br i1 %cmp1, label %if.then, label %if.end, !dbg !325
+
+if.then:                                          ; preds = %for.body
+  call void @exit(i32 noundef -1) #8, !dbg !326
+  unreachable, !dbg !326
+
+if.end:                                           ; preds = %for.body
+  %2 = load ptr, ptr %data, align 8, !dbg !328
+  %call2 = call ptr @SAFEFREE(ptr noundef %2), !dbg !329
+  br label %for.inc, !dbg !330
+
+for.inc:                                          ; preds = %if.end
+  %3 = load i32, ptr %i, align 4, !dbg !331
+  %inc = add nsw i32 %3, 1, !dbg !331
+  store i32 %inc, ptr %i, align 4, !dbg !331
+  br label %for.cond, !dbg !332, !llvm.loop !333
+
+for.end:                                          ; preds = %for.cond
+  store i32 0, ptr %k, align 4, !dbg !335
+  br label %for.cond3, !dbg !337
+
+for.cond3:                                        ; preds = %for.inc6, %for.end
+  %4 = load i32, ptr %k, align 4, !dbg !338
+  %cmp4 = icmp slt i32 %4, 1, !dbg !340
+  br i1 %cmp4, label %for.body5, label %for.end8, !dbg !341
+
+for.body5:                                        ; preds = %for.cond3
+  br label %for.inc6, !dbg !342
+
+for.inc6:                                         ; preds = %for.body5
+  %5 = load i32, ptr %k, align 4, !dbg !344
+  %inc7 = add nsw i32 %5, 1, !dbg !344
+  store i32 %inc7, ptr %k, align 4, !dbg !344
+  br label %for.cond3, !dbg !345, !llvm.loop !346
+
+for.end8:                                         ; preds = %for.cond3
+  ret void, !dbg !348
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal void @goodG2B() #0 !dbg !349 {
+entry:
+  %h = alloca i32, align 4
+  %j = alloca i32, align 4
+  %data = alloca ptr, align 8
+  call void @llvm.dbg.declare(metadata ptr %h, metadata !350, metadata !DIExpression()), !dbg !351
+  call void @llvm.dbg.declare(metadata ptr %j, metadata !352, metadata !DIExpression()), !dbg !353
+  call void @llvm.dbg.declare(metadata ptr %data, metadata !354, metadata !DIExpression()), !dbg !355
+  store ptr null, ptr %data, align 8, !dbg !356
+  store i32 0, ptr %h, align 4, !dbg !357
+  br label %for.cond, !dbg !359
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %0 = load i32, ptr %h, align 4, !dbg !360
+  %cmp = icmp slt i32 %0, 1, !dbg !362
+  br i1 %cmp, label %for.body, label %for.end, !dbg !363
+
+for.body:                                         ; preds = %for.cond
+  %call = call ptr @SAFEMALLOC(i32 noundef 800), !dbg !364
+  store ptr %call, ptr %data, align 8, !dbg !366
+  %1 = load ptr, ptr %data, align 8, !dbg !367
+  %cmp1 = icmp eq ptr %1, null, !dbg !369
+  br i1 %cmp1, label %if.then, label %if.end, !dbg !370
+
+if.then:                                          ; preds = %for.body
+  call void @exit(i32 noundef -1) #8, !dbg !371
+  unreachable, !dbg !371
+
+if.end:                                           ; preds = %for.body
+  br label %for.inc, !dbg !373
+
+for.inc:                                          ; preds = %if.end
+  %2 = load i32, ptr %h, align 4, !dbg !374
+  %inc = add nsw i32 %2, 1, !dbg !374
+  store i32 %inc, ptr %h, align 4, !dbg !374
+  br label %for.cond, !dbg !375, !llvm.loop !376
+
+for.end:                                          ; preds = %for.cond
+  store i32 0, ptr %j, align 4, !dbg !378
+  br label %for.cond2, !dbg !380
+
+for.cond2:                                        ; preds = %for.inc6, %for.end
+  %3 = load i32, ptr %j, align 4, !dbg !381
+  %cmp3 = icmp slt i32 %3, 1, !dbg !383
+  br i1 %cmp3, label %for.body4, label %for.end8, !dbg !384
+
+for.body4:                                        ; preds = %for.cond2
+  %4 = load ptr, ptr %data, align 8, !dbg !385
+  %call5 = call ptr @SAFEFREE(ptr noundef %4), !dbg !387
+  br label %for.inc6, !dbg !388
+
+for.inc6:                                         ; preds = %for.body4
+  %5 = load i32, ptr %j, align 4, !dbg !389
+  %inc7 = add nsw i32 %5, 1, !dbg !389
+  store i32 %inc7, ptr %j, align 4, !dbg !389
+  br label %for.cond2, !dbg !390, !llvm.loop !391
+
+for.end8:                                         ; preds = %for.cond2
+  ret void, !dbg !393
+}
+
+attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #2 = { "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { nounwind allocsize(0) "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { nounwind "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #5 = { noreturn nounwind "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #6 = { nounwind allocsize(0) }
+attributes #7 = { nounwind }
+attributes #8 = { noreturn nounwind }
+
+!llvm.dbg.cu = !{!38}
+!llvm.module.flags = !{!52, !53, !54, !55, !56, !57, !58}
+!llvm.ident = !{!59}
+
+!0 = !DIGlobalVariableExpression(var: !1, expr: !DIExpression())
+!1 = distinct !DIGlobalVariable(scope: null, file: !2, line: 5, type: !3, isLocal: true, isDefinition: true)
+!2 = !DIFile(filename: "aliascheck.h", directory: "/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite", checksumkind: CSK_MD5, checksum: "1a872d554bb9ccba276f530467d4645b")
+!3 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 16, elements: !5)
+!4 = !DIBasicType(name: "char", size: 8, encoding: DW_ATE_signed_char)
+!5 = !{!6}
+!6 = !DISubrange(count: 2)
+!7 = !DIGlobalVariableExpression(var: !8, expr: !DIExpression())
+!8 = distinct !DIGlobalVariable(scope: null, file: !2, line: 94, type: !9, isLocal: true, isDefinition: true)
+!9 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 32, elements: !10)
+!10 = !{!11}
+!11 = !DISubrange(count: 4)
+!12 = !DIGlobalVariableExpression(var: !13, expr: !DIExpression())
+!13 = distinct !DIGlobalVariable(scope: null, file: !2, line: 95, type: !14, isLocal: true, isDefinition: true)
+!14 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 200, elements: !15)
+!15 = !{!16}
+!16 = !DISubrange(count: 25)
+!17 = !DIGlobalVariableExpression(var: !18, expr: !DIExpression())
+!18 = distinct !DIGlobalVariable(scope: null, file: !19, line: 110, type: !20, isLocal: true, isDefinition: true)
+!19 = !DIFile(filename: "src/tdf/CWE415_Double_Free__malloc_free_struct_17.c", directory: "/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite", checksumkind: CSK_MD5, checksum: "c9ca9566005e4dd4ba0accc9c5c61e60")
+!20 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 144, elements: !21)
+!21 = !{!22}
+!22 = !DISubrange(count: 18)
+!23 = !DIGlobalVariableExpression(var: !24, expr: !DIExpression())
+!24 = distinct !DIGlobalVariable(scope: null, file: !19, line: 112, type: !25, isLocal: true, isDefinition: true)
+!25 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 128, elements: !26)
+!26 = !{!27}
+!27 = !DISubrange(count: 16)
+!28 = !DIGlobalVariableExpression(var: !29, expr: !DIExpression())
+!29 = distinct !DIGlobalVariable(scope: null, file: !19, line: 115, type: !30, isLocal: true, isDefinition: true)
+!30 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 136, elements: !31)
+!31 = !{!32}
+!32 = !DISubrange(count: 17)
+!33 = !DIGlobalVariableExpression(var: !34, expr: !DIExpression())
+!34 = distinct !DIGlobalVariable(scope: null, file: !19, line: 117, type: !35, isLocal: true, isDefinition: true)
+!35 = !DICompositeType(tag: DW_TAG_array_type, baseType: !4, size: 120, elements: !36)
+!36 = !{!37}
+!37 = !DISubrange(count: 15)
+!38 = distinct !DICompileUnit(language: DW_LANG_C11, file: !39, producer: "clang version 16.0.0", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, retainedTypes: !40, globals: !51, splitDebugInlining: false, nameTableKind: None)
+!39 = !DIFile(filename: "/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite/src/tdf/CWE415_Double_Free__malloc_free_struct_17.c", directory: "/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite", checksumkind: CSK_MD5, checksum: "c9ca9566005e4dd4ba0accc9c5c61e60")
+!40 = !{!41, !42, !50}
+!41 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: null, size: 64)
+!42 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !43, size: 64)
+!43 = !DIDerivedType(tag: DW_TAG_typedef, name: "twoIntsStruct", file: !44, line: 100, baseType: !45)
+!44 = !DIFile(filename: "std_testcase.h", directory: "/g/data/ey69/xiao/project/Path-Sensitive-Analysis/Test-Suite", checksumkind: CSK_MD5, checksum: "1dccefb0310558c17683ded20b0d6982")
+!45 = distinct !DICompositeType(tag: DW_TAG_structure_type, name: "_twoIntsStruct", file: !44, line: 96, size: 64, elements: !46)
+!46 = !{!47, !49}
+!47 = !DIDerivedType(tag: DW_TAG_member, name: "intOne", scope: !45, file: !44, line: 98, baseType: !48, size: 32)
+!48 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
+!49 = !DIDerivedType(tag: DW_TAG_member, name: "intTwo", scope: !45, file: !44, line: 99, baseType: !48, size: 32, offset: 32)
+!50 = !DIBasicType(name: "unsigned int", size: 32, encoding: DW_ATE_unsigned)
+!51 = !{!0, !7, !12, !17, !23, !28, !33}
+!52 = !{i32 7, !"Dwarf Version", i32 5}
+!53 = !{i32 2, !"Debug Info Version", i32 3}
+!54 = !{i32 1, !"wchar_size", i32 4}
+!55 = !{i32 8, !"PIC Level", i32 2}
+!56 = !{i32 7, !"PIE Level", i32 2}
+!57 = !{i32 7, !"uwtable", i32 2}
+!58 = !{i32 7, !"frame-pointer", i32 2}
+!59 = !{!"clang version 16.0.0"}
+!60 = distinct !DISubprogram(name: "MUSTALIAS", scope: !2, file: !2, line: 4, type: !61, scopeLine: 4, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!61 = !DISubroutineType(types: !62)
+!62 = !{null, !41, !41}
+!63 = !{}
+!64 = !DILocalVariable(name: "p", arg: 1, scope: !60, file: !2, line: 4, type: !41)
+!65 = !DILocation(line: 4, column: 22, scope: !60)
+!66 = !DILocalVariable(name: "q", arg: 2, scope: !60, file: !2, line: 4, type: !41)
+!67 = !DILocation(line: 4, column: 31, scope: !60)
+!68 = !DILocation(line: 5, column: 3, scope: !60)
+!69 = !DILocation(line: 6, column: 1, scope: !60)
+!70 = distinct !DISubprogram(name: "PARTIALALIAS", scope: !2, file: !2, line: 8, type: !61, scopeLine: 8, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!71 = !DILocalVariable(name: "p", arg: 1, scope: !70, file: !2, line: 8, type: !41)
+!72 = !DILocation(line: 8, column: 25, scope: !70)
+!73 = !DILocalVariable(name: "q", arg: 2, scope: !70, file: !2, line: 8, type: !41)
+!74 = !DILocation(line: 8, column: 34, scope: !70)
+!75 = !DILocation(line: 9, column: 3, scope: !70)
+!76 = !DILocation(line: 10, column: 1, scope: !70)
+!77 = distinct !DISubprogram(name: "MAYALIAS", scope: !2, file: !2, line: 12, type: !61, scopeLine: 12, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!78 = !DILocalVariable(name: "p", arg: 1, scope: !77, file: !2, line: 12, type: !41)
+!79 = !DILocation(line: 12, column: 21, scope: !77)
+!80 = !DILocalVariable(name: "q", arg: 2, scope: !77, file: !2, line: 12, type: !41)
+!81 = !DILocation(line: 12, column: 30, scope: !77)
+!82 = !DILocation(line: 13, column: 3, scope: !77)
+!83 = !DILocation(line: 14, column: 1, scope: !77)
+!84 = distinct !DISubprogram(name: "NOALIAS", scope: !2, file: !2, line: 16, type: !61, scopeLine: 16, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!85 = !DILocalVariable(name: "p", arg: 1, scope: !84, file: !2, line: 16, type: !41)
+!86 = !DILocation(line: 16, column: 20, scope: !84)
+!87 = !DILocalVariable(name: "q", arg: 2, scope: !84, file: !2, line: 16, type: !41)
+!88 = !DILocation(line: 16, column: 29, scope: !84)
+!89 = !DILocation(line: 17, column: 3, scope: !84)
+!90 = !DILocation(line: 18, column: 1, scope: !84)
+!91 = distinct !DISubprogram(name: "EXPECTEDFAIL_MAYALIAS", scope: !2, file: !2, line: 20, type: !61, scopeLine: 20, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!92 = !DILocalVariable(name: "p", arg: 1, scope: !91, file: !2, line: 20, type: !41)
+!93 = !DILocation(line: 20, column: 34, scope: !91)
+!94 = !DILocalVariable(name: "q", arg: 2, scope: !91, file: !2, line: 20, type: !41)
+!95 = !DILocation(line: 20, column: 43, scope: !91)
+!96 = !DILocation(line: 21, column: 3, scope: !91)
+!97 = !DILocation(line: 22, column: 1, scope: !91)
+!98 = distinct !DISubprogram(name: "EXPECTEDFAIL_NOALIAS", scope: !2, file: !2, line: 24, type: !61, scopeLine: 24, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!99 = !DILocalVariable(name: "p", arg: 1, scope: !98, file: !2, line: 24, type: !41)
+!100 = !DILocation(line: 24, column: 33, scope: !98)
+!101 = !DILocalVariable(name: "q", arg: 2, scope: !98, file: !2, line: 24, type: !41)
+!102 = !DILocation(line: 24, column: 42, scope: !98)
+!103 = !DILocation(line: 25, column: 3, scope: !98)
+!104 = !DILocation(line: 26, column: 1, scope: !98)
+!105 = distinct !DISubprogram(name: "SAFEMALLOC", scope: !2, file: !2, line: 29, type: !106, scopeLine: 29, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!106 = !DISubroutineType(types: !107)
+!107 = !{!41, !48}
+!108 = !DILocalVariable(name: "n", arg: 1, scope: !105, file: !2, line: 29, type: !48)
+!109 = !DILocation(line: 29, column: 22, scope: !105)
+!110 = !DILocation(line: 30, column: 17, scope: !105)
+!111 = !DILocation(line: 30, column: 10, scope: !105)
+!112 = !DILocation(line: 30, column: 3, scope: !105)
+!113 = distinct !DISubprogram(name: "DOUBLEFREEMALLOC", scope: !2, file: !2, line: 33, type: !106, scopeLine: 33, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!114 = !DILocalVariable(name: "n", arg: 1, scope: !113, file: !2, line: 33, type: !48)
+!115 = !DILocation(line: 33, column: 28, scope: !113)
+!116 = !DILocation(line: 34, column: 19, scope: !113)
+!117 = !DILocation(line: 34, column: 12, scope: !113)
+!118 = !DILocation(line: 34, column: 5, scope: !113)
+!119 = distinct !DISubprogram(name: "PLKMALLOC", scope: !2, file: !2, line: 37, type: !106, scopeLine: 37, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!120 = !DILocalVariable(name: "n", arg: 1, scope: !119, file: !2, line: 37, type: !48)
+!121 = !DILocation(line: 37, column: 21, scope: !119)
+!122 = !DILocation(line: 38, column: 17, scope: !119)
+!123 = !DILocation(line: 38, column: 10, scope: !119)
+!124 = !DILocation(line: 38, column: 3, scope: !119)
+!125 = distinct !DISubprogram(name: "NFRMALLOC", scope: !2, file: !2, line: 41, type: !106, scopeLine: 41, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!126 = !DILocalVariable(name: "n", arg: 1, scope: !125, file: !2, line: 41, type: !48)
+!127 = !DILocation(line: 41, column: 21, scope: !125)
+!128 = !DILocation(line: 42, column: 17, scope: !125)
+!129 = !DILocation(line: 42, column: 10, scope: !125)
+!130 = !DILocation(line: 42, column: 3, scope: !125)
+!131 = distinct !DISubprogram(name: "CLKMALLOC", scope: !2, file: !2, line: 45, type: !106, scopeLine: 45, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!132 = !DILocalVariable(name: "n", arg: 1, scope: !131, file: !2, line: 45, type: !48)
+!133 = !DILocation(line: 45, column: 21, scope: !131)
+!134 = !DILocation(line: 46, column: 17, scope: !131)
+!135 = !DILocation(line: 46, column: 10, scope: !131)
+!136 = !DILocation(line: 46, column: 3, scope: !131)
+!137 = distinct !DISubprogram(name: "NFRLEAKFP", scope: !2, file: !2, line: 49, type: !106, scopeLine: 49, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!138 = !DILocalVariable(name: "n", arg: 1, scope: !137, file: !2, line: 49, type: !48)
+!139 = !DILocation(line: 49, column: 21, scope: !137)
+!140 = !DILocation(line: 50, column: 17, scope: !137)
+!141 = !DILocation(line: 50, column: 10, scope: !137)
+!142 = !DILocation(line: 50, column: 3, scope: !137)
+!143 = distinct !DISubprogram(name: "PLKLEAKFP", scope: !2, file: !2, line: 53, type: !106, scopeLine: 53, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!144 = !DILocalVariable(name: "n", arg: 1, scope: !143, file: !2, line: 53, type: !48)
+!145 = !DILocation(line: 53, column: 21, scope: !143)
+!146 = !DILocation(line: 54, column: 17, scope: !143)
+!147 = !DILocation(line: 54, column: 10, scope: !143)
+!148 = !DILocation(line: 54, column: 3, scope: !143)
+!149 = distinct !DISubprogram(name: "LEAKFN", scope: !2, file: !2, line: 57, type: !106, scopeLine: 57, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!150 = !DILocalVariable(name: "n", arg: 1, scope: !149, file: !2, line: 57, type: !48)
+!151 = !DILocation(line: 57, column: 18, scope: !149)
+!152 = !DILocation(line: 58, column: 17, scope: !149)
+!153 = !DILocation(line: 58, column: 10, scope: !149)
+!154 = !DILocation(line: 58, column: 3, scope: !149)
+!155 = distinct !DISubprogram(name: "RC_ACCESS", scope: !2, file: !2, line: 67, type: !156, scopeLine: 67, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!156 = !DISubroutineType(types: !157)
+!157 = !{null, !48, !48}
+!158 = !DILocalVariable(name: "id", arg: 1, scope: !155, file: !2, line: 67, type: !48)
+!159 = !DILocation(line: 67, column: 20, scope: !155)
+!160 = !DILocalVariable(name: "flags", arg: 2, scope: !155, file: !2, line: 67, type: !48)
+!161 = !DILocation(line: 67, column: 28, scope: !155)
+!162 = !DILocation(line: 68, column: 3, scope: !155)
+!163 = !DILocation(line: 69, column: 1, scope: !155)
+!164 = distinct !DISubprogram(name: "CXT_THREAD", scope: !2, file: !2, line: 79, type: !165, scopeLine: 79, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!165 = !DISubroutineType(types: !166)
+!166 = !{null, !48, !167}
+!167 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !4, size: 64)
+!168 = !DILocalVariable(name: "thdid", arg: 1, scope: !164, file: !2, line: 79, type: !48)
+!169 = !DILocation(line: 79, column: 21, scope: !164)
+!170 = !DILocalVariable(name: "cxt", arg: 2, scope: !164, file: !2, line: 79, type: !167)
+!171 = !DILocation(line: 79, column: 34, scope: !164)
+!172 = !DILocation(line: 81, column: 1, scope: !164)
+!173 = distinct !DISubprogram(name: "TCT_ACCESS", scope: !2, file: !2, line: 82, type: !165, scopeLine: 82, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!174 = !DILocalVariable(name: "thdid", arg: 1, scope: !173, file: !2, line: 82, type: !48)
+!175 = !DILocation(line: 82, column: 21, scope: !173)
+!176 = !DILocalVariable(name: "cxt", arg: 2, scope: !173, file: !2, line: 82, type: !167)
+!177 = !DILocation(line: 82, column: 33, scope: !173)
+!178 = !DILocation(line: 84, column: 1, scope: !173)
+!179 = distinct !DISubprogram(name: "INTERLEV_ACCESS", scope: !2, file: !2, line: 85, type: !180, scopeLine: 85, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!180 = !DISubroutineType(types: !181)
+!181 = !{null, !48, !167, !167}
+!182 = !DILocalVariable(name: "thdid", arg: 1, scope: !179, file: !2, line: 85, type: !48)
+!183 = !DILocation(line: 85, column: 26, scope: !179)
+!184 = !DILocalVariable(name: "cxt", arg: 2, scope: !179, file: !2, line: 85, type: !167)
+!185 = !DILocation(line: 85, column: 38, scope: !179)
+!186 = !DILocalVariable(name: "lev", arg: 3, scope: !179, file: !2, line: 85, type: !167)
+!187 = !DILocation(line: 85, column: 49, scope: !179)
+!188 = !DILocation(line: 87, column: 1, scope: !179)
+!189 = distinct !DISubprogram(name: "LOCK", scope: !2, file: !2, line: 89, type: !190, scopeLine: 89, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!190 = !DISubroutineType(types: !191)
+!191 = !{null, !167}
+!192 = !DILocalVariable(name: "lockname", arg: 1, scope: !189, file: !2, line: 89, type: !167)
+!193 = !DILocation(line: 89, column: 17, scope: !189)
+!194 = !DILocation(line: 91, column: 1, scope: !189)
+!195 = distinct !DISubprogram(name: "PAUSE", scope: !2, file: !2, line: 93, type: !190, scopeLine: 93, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!196 = !DILocalVariable(name: "str", arg: 1, scope: !195, file: !2, line: 93, type: !167)
+!197 = !DILocation(line: 93, column: 18, scope: !195)
+!198 = !DILocation(line: 94, column: 18, scope: !195)
+!199 = !DILocation(line: 94, column: 3, scope: !195)
+!200 = !DILocation(line: 95, column: 3, scope: !195)
+!201 = !DILocation(line: 96, column: 3, scope: !195)
+!202 = !DILocation(line: 97, column: 1, scope: !195)
+!203 = distinct !DISubprogram(name: "SAFEUAFFUNC", scope: !2, file: !2, line: 100, type: !204, scopeLine: 100, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!204 = !DISubroutineType(types: !205)
+!205 = !{!41, !206}
+!206 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !48, size: 64)
+!207 = !DILocalVariable(name: "p", arg: 1, scope: !203, file: !2, line: 100, type: !206)
+!208 = !DILocation(line: 100, column: 24, scope: !203)
+!209 = !DILocation(line: 101, column: 6, scope: !203)
+!210 = !DILocation(line: 101, column: 8, scope: !203)
+!211 = !DILocation(line: 102, column: 1, scope: !203)
+!212 = distinct !DISubprogram(name: "UAFFUNC", scope: !2, file: !2, line: 104, type: !204, scopeLine: 104, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!213 = !DILocalVariable(name: "p", arg: 1, scope: !212, file: !2, line: 104, type: !206)
+!214 = !DILocation(line: 104, column: 20, scope: !212)
+!215 = !DILocation(line: 105, column: 6, scope: !212)
+!216 = !DILocation(line: 105, column: 8, scope: !212)
+!217 = !DILocation(line: 106, column: 1, scope: !212)
+!218 = distinct !DISubprogram(name: "SAFEFREE", scope: !2, file: !2, line: 110, type: !204, scopeLine: 110, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!219 = !DILocalVariable(name: "p", arg: 1, scope: !218, file: !2, line: 110, type: !206)
+!220 = !DILocation(line: 110, column: 22, scope: !218)
+!221 = !DILocation(line: 111, column: 10, scope: !218)
+!222 = !DILocation(line: 111, column: 5, scope: !218)
+!223 = !DILocation(line: 112, column: 1, scope: !218)
+!224 = distinct !DISubprogram(name: "DOUBLEFREE", scope: !2, file: !2, line: 115, type: !204, scopeLine: 115, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!225 = !DILocalVariable(name: "p", arg: 1, scope: !224, file: !2, line: 115, type: !206)
+!226 = !DILocation(line: 115, column: 24, scope: !224)
+!227 = !DILocation(line: 116, column: 10, scope: !224)
+!228 = !DILocation(line: 116, column: 5, scope: !224)
+!229 = !DILocation(line: 117, column: 1, scope: !224)
+!230 = distinct !DISubprogram(name: "deref", scope: !2, file: !2, line: 135, type: !231, scopeLine: 135, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!231 = !DISubroutineType(types: !232)
+!232 = !{null}
+!233 = !DILocation(line: 135, column: 20, scope: !230)
+!234 = distinct !DISubprogram(name: "CWE415_Double_Free__malloc_free_struct_17_bad", scope: !19, file: !19, line: 24, type: !231, scopeLine: 25, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!235 = !DILocalVariable(name: "i", scope: !234, file: !19, line: 26, type: !48)
+!236 = !DILocation(line: 26, column: 9, scope: !234)
+!237 = !DILocalVariable(name: "j", scope: !234, file: !19, line: 26, type: !48)
+!238 = !DILocation(line: 26, column: 11, scope: !234)
+!239 = !DILocalVariable(name: "data", scope: !234, file: !19, line: 27, type: !42)
+!240 = !DILocation(line: 27, column: 21, scope: !234)
+!241 = !DILocation(line: 29, column: 10, scope: !234)
+!242 = !DILocation(line: 30, column: 11, scope: !243)
+!243 = distinct !DILexicalBlock(scope: !234, file: !19, line: 30, column: 5)
+!244 = !DILocation(line: 30, column: 9, scope: !243)
+!245 = !DILocation(line: 30, column: 16, scope: !246)
+!246 = distinct !DILexicalBlock(scope: !243, file: !19, line: 30, column: 5)
+!247 = !DILocation(line: 30, column: 18, scope: !246)
+!248 = !DILocation(line: 30, column: 5, scope: !243)
+!249 = !DILocation(line: 32, column: 33, scope: !250)
+!250 = distinct !DILexicalBlock(scope: !246, file: !19, line: 31, column: 5)
+!251 = !DILocation(line: 32, column: 14, scope: !250)
+!252 = !DILocation(line: 33, column: 13, scope: !253)
+!253 = distinct !DILexicalBlock(scope: !250, file: !19, line: 33, column: 13)
+!254 = !DILocation(line: 33, column: 18, scope: !253)
+!255 = !DILocation(line: 33, column: 13, scope: !250)
+!256 = !DILocation(line: 33, column: 28, scope: !257)
+!257 = distinct !DILexicalBlock(scope: !253, file: !19, line: 33, column: 27)
+!258 = !DILocation(line: 35, column: 18, scope: !250)
+!259 = !DILocation(line: 35, column: 9, scope: !250)
+!260 = !DILocation(line: 36, column: 5, scope: !250)
+!261 = !DILocation(line: 30, column: 24, scope: !246)
+!262 = !DILocation(line: 30, column: 5, scope: !246)
+!263 = distinct !{!263, !248, !264, !265}
+!264 = !DILocation(line: 36, column: 5, scope: !243)
+!265 = !{!"llvm.loop.mustprogress"}
+!266 = !DILocation(line: 37, column: 11, scope: !267)
+!267 = distinct !DILexicalBlock(scope: !234, file: !19, line: 37, column: 5)
+!268 = !DILocation(line: 37, column: 9, scope: !267)
+!269 = !DILocation(line: 37, column: 16, scope: !270)
+!270 = distinct !DILexicalBlock(scope: !267, file: !19, line: 37, column: 5)
+!271 = !DILocation(line: 37, column: 18, scope: !270)
+!272 = !DILocation(line: 37, column: 5, scope: !267)
+!273 = !DILocation(line: 40, column: 20, scope: !274)
+!274 = distinct !DILexicalBlock(scope: !270, file: !19, line: 38, column: 5)
+!275 = !DILocation(line: 40, column: 9, scope: !274)
+!276 = !DILocation(line: 41, column: 5, scope: !274)
+!277 = !DILocation(line: 37, column: 24, scope: !270)
+!278 = !DILocation(line: 37, column: 5, scope: !270)
+!279 = distinct !{!279, !272, !280, !265}
+!280 = !DILocation(line: 41, column: 5, scope: !267)
+!281 = !DILocation(line: 42, column: 1, scope: !234)
+!282 = distinct !DISubprogram(name: "CWE415_Double_Free__malloc_free_struct_17_good", scope: !19, file: !19, line: 90, type: !231, scopeLine: 91, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!283 = !DILocation(line: 92, column: 5, scope: !282)
+!284 = !DILocation(line: 93, column: 5, scope: !282)
+!285 = !DILocation(line: 94, column: 1, scope: !282)
+!286 = distinct !DISubprogram(name: "main", scope: !19, file: !19, line: 105, type: !287, scopeLine: 106, flags: DIFlagPrototyped, spFlags: DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!287 = !DISubroutineType(types: !288)
+!288 = !{!48, !48, !289}
+!289 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !167, size: 64)
+!290 = !DILocalVariable(name: "argc", arg: 1, scope: !286, file: !19, line: 105, type: !48)
+!291 = !DILocation(line: 105, column: 14, scope: !286)
+!292 = !DILocalVariable(name: "argv", arg: 2, scope: !286, file: !19, line: 105, type: !289)
+!293 = !DILocation(line: 105, column: 27, scope: !286)
+!294 = !DILocation(line: 108, column: 22, scope: !286)
+!295 = !DILocation(line: 108, column: 12, scope: !286)
+!296 = !DILocation(line: 108, column: 5, scope: !286)
+!297 = !DILocation(line: 110, column: 5, scope: !286)
+!298 = !DILocation(line: 111, column: 5, scope: !286)
+!299 = !DILocation(line: 112, column: 5, scope: !286)
+!300 = !DILocation(line: 115, column: 5, scope: !286)
+!301 = !DILocation(line: 116, column: 5, scope: !286)
+!302 = !DILocation(line: 117, column: 5, scope: !286)
+!303 = !DILocation(line: 119, column: 5, scope: !286)
+!304 = distinct !DISubprogram(name: "goodB2G", scope: !19, file: !19, line: 49, type: !231, scopeLine: 50, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!305 = !DILocalVariable(name: "i", scope: !304, file: !19, line: 51, type: !48)
+!306 = !DILocation(line: 51, column: 9, scope: !304)
+!307 = !DILocalVariable(name: "k", scope: !304, file: !19, line: 51, type: !48)
+!308 = !DILocation(line: 51, column: 11, scope: !304)
+!309 = !DILocalVariable(name: "data", scope: !304, file: !19, line: 52, type: !42)
+!310 = !DILocation(line: 52, column: 21, scope: !304)
+!311 = !DILocation(line: 54, column: 10, scope: !304)
+!312 = !DILocation(line: 55, column: 11, scope: !313)
+!313 = distinct !DILexicalBlock(scope: !304, file: !19, line: 55, column: 5)
+!314 = !DILocation(line: 55, column: 9, scope: !313)
+!315 = !DILocation(line: 55, column: 16, scope: !316)
+!316 = distinct !DILexicalBlock(scope: !313, file: !19, line: 55, column: 5)
+!317 = !DILocation(line: 55, column: 18, scope: !316)
+!318 = !DILocation(line: 55, column: 5, scope: !313)
+!319 = !DILocation(line: 57, column: 33, scope: !320)
+!320 = distinct !DILexicalBlock(scope: !316, file: !19, line: 56, column: 5)
+!321 = !DILocation(line: 57, column: 14, scope: !320)
+!322 = !DILocation(line: 58, column: 13, scope: !323)
+!323 = distinct !DILexicalBlock(scope: !320, file: !19, line: 58, column: 13)
+!324 = !DILocation(line: 58, column: 18, scope: !323)
+!325 = !DILocation(line: 58, column: 13, scope: !320)
+!326 = !DILocation(line: 58, column: 28, scope: !327)
+!327 = distinct !DILexicalBlock(scope: !323, file: !19, line: 58, column: 27)
+!328 = !DILocation(line: 60, column: 18, scope: !320)
+!329 = !DILocation(line: 60, column: 9, scope: !320)
+!330 = !DILocation(line: 61, column: 5, scope: !320)
+!331 = !DILocation(line: 55, column: 24, scope: !316)
+!332 = !DILocation(line: 55, column: 5, scope: !316)
+!333 = distinct !{!333, !318, !334, !265}
+!334 = !DILocation(line: 61, column: 5, scope: !313)
+!335 = !DILocation(line: 62, column: 11, scope: !336)
+!336 = distinct !DILexicalBlock(scope: !304, file: !19, line: 62, column: 5)
+!337 = !DILocation(line: 62, column: 9, scope: !336)
+!338 = !DILocation(line: 62, column: 16, scope: !339)
+!339 = distinct !DILexicalBlock(scope: !336, file: !19, line: 62, column: 5)
+!340 = !DILocation(line: 62, column: 18, scope: !339)
+!341 = !DILocation(line: 62, column: 5, scope: !336)
+!342 = !DILocation(line: 67, column: 5, scope: !343)
+!343 = distinct !DILexicalBlock(scope: !339, file: !19, line: 63, column: 5)
+!344 = !DILocation(line: 62, column: 24, scope: !339)
+!345 = !DILocation(line: 62, column: 5, scope: !339)
+!346 = distinct !{!346, !341, !347, !265}
+!347 = !DILocation(line: 67, column: 5, scope: !336)
+!348 = !DILocation(line: 68, column: 1, scope: !304)
+!349 = distinct !DISubprogram(name: "goodG2B", scope: !19, file: !19, line: 71, type: !231, scopeLine: 72, spFlags: DISPFlagLocalToUnit | DISPFlagDefinition, unit: !38, retainedNodes: !63)
+!350 = !DILocalVariable(name: "h", scope: !349, file: !19, line: 73, type: !48)
+!351 = !DILocation(line: 73, column: 9, scope: !349)
+!352 = !DILocalVariable(name: "j", scope: !349, file: !19, line: 73, type: !48)
+!353 = !DILocation(line: 73, column: 11, scope: !349)
+!354 = !DILocalVariable(name: "data", scope: !349, file: !19, line: 74, type: !42)
+!355 = !DILocation(line: 74, column: 21, scope: !349)
+!356 = !DILocation(line: 76, column: 10, scope: !349)
+!357 = !DILocation(line: 77, column: 11, scope: !358)
+!358 = distinct !DILexicalBlock(scope: !349, file: !19, line: 77, column: 5)
+!359 = !DILocation(line: 77, column: 9, scope: !358)
+!360 = !DILocation(line: 77, column: 16, scope: !361)
+!361 = distinct !DILexicalBlock(scope: !358, file: !19, line: 77, column: 5)
+!362 = !DILocation(line: 77, column: 18, scope: !361)
+!363 = !DILocation(line: 77, column: 5, scope: !358)
+!364 = !DILocation(line: 79, column: 33, scope: !365)
+!365 = distinct !DILexicalBlock(scope: !361, file: !19, line: 78, column: 5)
+!366 = !DILocation(line: 79, column: 14, scope: !365)
+!367 = !DILocation(line: 80, column: 13, scope: !368)
+!368 = distinct !DILexicalBlock(scope: !365, file: !19, line: 80, column: 13)
+!369 = !DILocation(line: 80, column: 18, scope: !368)
+!370 = !DILocation(line: 80, column: 13, scope: !365)
+!371 = !DILocation(line: 80, column: 28, scope: !372)
+!372 = distinct !DILexicalBlock(scope: !368, file: !19, line: 80, column: 27)
+!373 = !DILocation(line: 82, column: 5, scope: !365)
+!374 = !DILocation(line: 77, column: 24, scope: !361)
+!375 = !DILocation(line: 77, column: 5, scope: !361)
+!376 = distinct !{!376, !363, !377, !265}
+!377 = !DILocation(line: 82, column: 5, scope: !358)
+!378 = !DILocation(line: 83, column: 11, scope: !379)
+!379 = distinct !DILexicalBlock(scope: !349, file: !19, line: 83, column: 5)
+!380 = !DILocation(line: 83, column: 9, scope: !379)
+!381 = !DILocation(line: 83, column: 16, scope: !382)
+!382 = distinct !DILexicalBlock(scope: !379, file: !19, line: 83, column: 5)
+!383 = !DILocation(line: 83, column: 18, scope: !382)
+!384 = !DILocation(line: 83, column: 5, scope: !379)
+!385 = !DILocation(line: 86, column: 18, scope: !386)
+!386 = distinct !DILexicalBlock(scope: !382, file: !19, line: 84, column: 5)
+!387 = !DILocation(line: 86, column: 9, scope: !386)
+!388 = !DILocation(line: 87, column: 5, scope: !386)
+!389 = !DILocation(line: 83, column: 24, scope: !382)
+!390 = !DILocation(line: 83, column: 5, scope: !382)
+!391 = distinct !{!391, !384, !392, !265}
+!392 = !DILocation(line: 87, column: 5, scope: !379)
+!393 = !DILocation(line: 88, column: 1, scope: !349)

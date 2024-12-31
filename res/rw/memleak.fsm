@@ -1,0 +1,12 @@
+$uninit $error Allocated Freed
+malloc free return
+$uninit free $uninit
+$uninit malloc Allocated
+Allocated free Freed
+Allocated malloc Allocated
+$uninit return $uninit
+Allocated return $error
+Freed malloc Allocated
+Freed free Freed
+Freed return Freed
+$error * $error

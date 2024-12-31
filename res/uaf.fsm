@@ -1,0 +1,12 @@
+$uninit $error Allocated Freed
+MALLOC free USEFUNC
+$uninit free $uninit
+$uninit USEFUNC $uninit
+$uninit MALLOC Allocated
+Allocated free Freed
+Allocated MALLOC Allocated
+Allocated USEFUNC Allocated
+Freed MALLOC Allocated
+Freed USEFUNC $error
+Freed free Freed
+$error * $error

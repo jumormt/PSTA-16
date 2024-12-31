@@ -1,0 +1,9 @@
+$uninit $error Opened
+fopen fclose fprintf
+$uninit fclose $error
+$uninit fprintf $error
+$uninit fopen Opened
+Opened fclose $uninit
+Opened fopen $error
+Opened fprintf Opened
+$error * $error

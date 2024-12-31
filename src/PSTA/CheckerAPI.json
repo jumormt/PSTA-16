@@ -1,0 +1,305 @@
+{
+  "alloc": {
+    "type": "CK_ALLOC"
+  },
+  "alloc_check": {
+    "type": "CK_ALLOC"
+  },
+  "alloc_clear": {
+    "type": "CK_ALLOC"
+  },
+  "calloc": {
+    "type": "CK_ALLOC"
+  },
+  "jpeg_alloc_huff_table": {
+    "type": "CK_ALLOC"
+  },
+  "jpeg_alloc_quant_table": {
+    "type": "CK_ALLOC"
+  },
+  "lalloc": {
+    "type": "CK_ALLOC"
+  },
+  "lalloc_clear": {
+    "type": "CK_ALLOC"
+  },
+  "malloc": {
+    "type": "CK_ALLOC"
+  },
+  "nhalloc": {
+    "type": "CK_ALLOC"
+  },
+  "oballoc": {
+    "type": "CK_ALLOC"
+  },
+  "permalloc": {
+    "type": "CK_ALLOC"
+  },
+  "png_create_info_struct": {
+    "type": "CK_ALLOC"
+  },
+  "png_create_write_struct": {
+    "type": "CK_ALLOC"
+  },
+  "safe_calloc": {
+    "type": "CK_ALLOC"
+  },
+  "safe_malloc": {
+    "type": "CK_ALLOC"
+  },
+  "safecalloc": {
+    "type": "CK_ALLOC"
+  },
+  "safemalloc": {
+    "type": "CK_ALLOC"
+  },
+  "safexcalloc": {
+    "type": "CK_ALLOC"
+  },
+  "xalloc": {
+    "type": "CK_ALLOC"
+  },
+  "safexmalloc": {
+    "type": "CK_ALLOC"
+  },
+  "xcalloc": {
+    "type": "CK_ALLOC"
+  },
+  "xmalloc": {
+    "type": "CK_ALLOC"
+  },
+  "SSL_CTX_new": {
+    "type": "CK_ALLOC"
+  },
+  "SSL_new": {
+    "type": "CK_ALLOC"
+  },
+  "VOS_MemAlloc": {
+    "type": "CK_ALLOC"
+  },
+  "_Znwm": {
+    "type": "CK_ALLOC"
+  },
+  "MALLOC": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "SAFEMALLOC": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "DOUBLEFREEMALLOC": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "PLKMALLOC": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "NFRMALLOC": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "CLKMALLOC": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "NFRLEAKFP": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "PLKLEAKFP": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "LEAKFN": {
+    "type": "CK_ALLOC_WRAPPER"
+  },
+  "VOS_MemFree": {
+    "type": "CK_FREE"
+  },
+  "cfree": {
+    "type": "CK_FREE"
+  },
+  "free": {
+    "type": "CK_FREE"
+  },
+  "free_all_mem": {
+    "type": "CK_FREE"
+  },
+  "freeaddrinfo": {
+    "type": "CK_FREE"
+  },
+  "gcry_mpi_release": {
+    "type": "CK_FREE"
+  },
+  "gcry_sexp_release": {
+    "type": "CK_FREE"
+  },
+  "globfree": {
+    "type": "CK_FREE"
+  },
+  "nhfree": {
+    "type": "CK_FREE"
+  },
+  "obstack_free": {
+    "type": "CK_FREE"
+  },
+  "safe_cfree": {
+    "type": "CK_FREE"
+  },
+  "safe_free": {
+    "type": "CK_FREE"
+  },
+  "safefree": {
+    "type": "CK_FREE"
+  },
+  "safexfree": {
+    "type": "CK_FREE"
+  },
+  "sm_free": {
+    "type": "CK_FREE"
+  },
+  "vim_free": {
+    "type": "CK_FREE"
+  },
+  "xfree": {
+    "type": "CK_FREE"
+  },
+  "SSL_CTX_free": {
+    "type": "CK_FREE"
+  },
+  "SSL_free": {
+    "type": "CK_FREE"
+  },
+  "_ZdlPv": {
+    "type": "CK_FREE"
+  },
+  "fopen": {
+    "type": "CK_FOPEN"
+  },
+  "\\01_fopen": {
+    "type": "CK_FOPEN"
+  },
+  "\\01fopen64": {
+    "type": "CK_FOPEN"
+  },
+  "\\01readdir64": {
+    "type": "CK_FOPEN"
+  },
+  "\\01tmpfile64": {
+    "type": "CK_FOPEN"
+  },
+  "fopen64": {
+    "type": "CK_FOPEN"
+  },
+  "XOpenDisplay": {
+    "type": "CK_FOPEN"
+  },
+  "XtOpenDisplay": {
+    "type": "CK_FOPEN"
+  },
+  "fopencookie": {
+    "type": "CK_FOPEN"
+  },
+  "popen": {
+    "type": "CK_FOPEN"
+  },
+  "readdir": {
+    "type": "CK_FOPEN"
+  },
+  "readdir64": {
+    "type": "CK_FOPEN"
+  },
+  "gzdopen": {
+    "type": "CK_FOPEN"
+  },
+  "iconv_open": {
+    "type": "CK_FOPEN"
+  },
+  "tmpfile": {
+    "type": "CK_FOPEN"
+  },
+  "tmpfile64": {
+    "type": "CK_FOPEN"
+  },
+  "BIO_new_socket": {
+    "type": "CK_FOPEN"
+  },
+  "gcry_md_open": {
+    "type": "CK_FOPEN"
+  },
+  "gcry_cipher_open": {
+    "type": "CK_FOPEN"
+  },
+  "fclose": {
+    "type": "CK_FCLOSE"
+  },
+  "XCloseDisplay": {
+    "type": "CK_FCLOSE"
+  },
+  "XtCloseDisplay": {
+    "type": "CK_FCLOSE"
+  },
+  "__res_nclose": {
+    "type": "CK_FCLOSE"
+  },
+  "pclose": {
+    "type": "CK_FCLOSE"
+  },
+  "closedir": {
+    "type": "CK_FCLOSE"
+  },
+  "dlclose": {
+    "type": "CK_FCLOSE"
+  },
+  "gzclose": {
+    "type": "CK_FCLOSE"
+  },
+  "iconv_close": {
+    "type": "CK_FCLOSE"
+  },
+  "gcry_md_close": {
+    "type": "CK_FCLOSE"
+  },
+  "gcry_cipher_close": {
+    "type": "CK_FCLOSE"
+  },
+  "return": {
+    "type": "CK_RET"
+  },
+  "USEFUNC": {
+    "type": "CK_USE_WRAPPER"
+  },
+  "UAFFUNC": {
+    "type": "CK_USE_WRAPPER"
+  },
+  "SAFEUAFFUNC": {
+    "type": "CK_USE_WRAPPER"
+  },
+  "SAFEUAFFUNC_FP": {
+    "type": "CK_USE_WRAPPER"
+  },
+  "UAFFUNC_FP": {
+    "type": "CK_USE_WRAPPER"
+  },
+  "FREEFUNC": {
+  "type": "CK_FREE_WRAPPER"
+  },
+  "SAFEFREE": {
+    "type": "CK_FREE_WRAPPER"
+  },
+  "DOUBLEFREE": {
+    "type": "CK_FREE_WRAPPER"
+  },
+  "DOUBLEFREE_FP": {
+    "type": "CK_FREE_WRAPPER"
+  },
+  "load": {
+    "type": "CK_USE"
+  },
+  "printf": {
+    "type": "CK_USE"
+  },
+  "printLine": {
+    "type": "CK_USE"
+  },
+  "printWLine": {
+    "type": "CK_USE"
+  },
+  "printStructLine": {
+    "type": "CK_USE"
+  }
+}

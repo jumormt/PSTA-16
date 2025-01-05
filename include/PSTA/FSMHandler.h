@@ -14,7 +14,7 @@
 #include <SABER/SaberSVFGBuilder.h>
 #include "AE/Core/SymState.h"
 
-#define CHECKERAPI_JSON_PATH "/src/PSTA/CheckerAPI.json"
+#define CHECKERAPI_JSON_PATH "/include/PSTA/CheckerAPI.json"
 
 /*!
  * In this file, we have class:

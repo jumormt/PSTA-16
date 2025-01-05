@@ -6,7 +6,7 @@
  * Created by xiao on 3/21/22.
  *
  */
-#include "ControlDG.h"
+#include "Slicing/ControlDG.h"
 
 using namespace SVF;
 

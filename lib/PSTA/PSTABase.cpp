@@ -4,11 +4,10 @@
 
 #include "PSTA/PSTABase.h"
 #include "SVF-LLVM/SVFIRBuilder.h"
-#include <queue>
-#include <numeric>
 #include "PSTA/Logger.h"
 #include "PSTA/BTPExtractor.h"
 
+#include <queue>
 
 using namespace SVF;
 using namespace SVFUtil;

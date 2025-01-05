@@ -7,7 +7,14 @@ project(PSTA
         LANGUAGES C CXX
 )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.in ${CMAKE_CURRENT_SOURCE_DIR}/src/PSTA/config.h @ONLY)
+# 判断是否定义了 CMAKE_INSTALL_PREFIX
+if(CMAKE_INSTALL_PREFIX STREQUAL "/usr/local")
+    set(PROJECT_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
+else()
+    set(PROJECT_SOURCE_ROOT "${CMAKE_INSTALL_PREFIX}")
+endif()
+message("project source root: ${PROJECT_SOURCE_ROOT}")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.in include/PSTA/config.h @ONLY)
 
 # Check if the LLVM_DIR environment variable is defined and set it accordingly
 if (DEFINED LLVM_DIR)
@@ -187,7 +194,11 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Test-Suite")
     add_subdirectory(Test-Suite)
     include(CTest)
 endif()
-include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-add_subdirectory(src)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_subdirectory(lib)
+add_subdirectory(tools)
+
+install(DIRECTORY include/ DESTINATION include)
+install(DIRECTORY res/ DESTINATION res)

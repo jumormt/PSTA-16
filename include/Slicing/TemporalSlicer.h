@@ -6,7 +6,7 @@
 #define PSA_TEMPORALSLICER_H
 
 #include "PSTA/FSMHandler.h"
-#include "ICFGWrapper.h"
+#include "Slicing/ICFGWrapper.h"
 #include "Slicing/PIExtractor.h"
 
 namespace SVF {

@@ -1,10 +1,9 @@
 //
 // Created by Xiao on 7/31/2022.
 //
-
-#include "BTPExtractor.h"
+#include "PSTA/BTPExtractor.h"
 #include "Slicing/ControlDGBuilder.h"
-#include "Logger.h"
+#include "PSTA/Logger.h"
 #include <cmath>
 
 using namespace SVF;

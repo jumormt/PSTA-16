@@ -9,7 +9,7 @@
  * Created by xiao on 3/21/22.
  *
  */
-#include "ControlDGBuilder.h"
+#include "Slicing/ControlDGBuilder.h"
 #include "SVF-LLVM/SVFIRBuilder.h"
 #include "SVF-LLVM/LLVMUtil.h"
 

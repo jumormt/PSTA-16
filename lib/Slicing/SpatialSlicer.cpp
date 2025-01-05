@@ -3,7 +3,7 @@
 //
 
 #include "Slicing/SpatialSlicer.h"
-#include "ControlDGBuilder.h"
+#include "Slicing/ControlDGBuilder.h"
 #include "PSTA/PSAOptions.h"
 #include "SABER/SaberSVFGBuilder.h"
 #include "PSTA/Logger.h"

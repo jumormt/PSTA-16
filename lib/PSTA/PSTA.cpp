@@ -9,16 +9,11 @@
 #include "PSTA/PSAStat.h"
 #include "PSTA/BTPExtractor.h"
 #include <queue>
-#include <numeric>
 #include "PSTA/Logger.h"
-
-
 
 using namespace SVF;
 using namespace SVFUtil;
 using namespace std;
-
-
 
 
 PSTA::PSTA() : _stat(new PSAStat(this)), _graphSparsificator() {

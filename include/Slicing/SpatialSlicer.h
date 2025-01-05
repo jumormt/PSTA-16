@@ -6,7 +6,7 @@
 #define PSA_SPATIALSLICER_H
 
 #include "PSTA/FSMHandler.h"
-#include "ICFGWrapper.h"
+#include "Slicing/ICFGWrapper.h"
 #include "Slicing/PIExtractor.h"
 #include <Util/DPItem.h>
 

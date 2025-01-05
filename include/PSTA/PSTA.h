@@ -7,7 +7,7 @@
 
 #include "Slicing/GraphSparsificator.h"
 #include "PSTA/PSTABase.h"
-#include "PSTA/BTPExtractor.h"
+#include "BTPExtractor.h"
 
 
 namespace SVF {

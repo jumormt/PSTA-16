@@ -13,13 +13,12 @@
 #define CDBUILDER_H
 
 #include "SVF-LLVM/LLVMUtil.h"
-#include "ControlDG.h"
+#include "Slicing/ControlDG.h"
 #include "SVFIR/SVFValue.h"
 // control dependence builder
 namespace SVF {
 class ControlDGBuilder {
 public:
-
     /// constructor
     ControlDGBuilder() : _controlDG(ControlDG::getControlDG()) {
 

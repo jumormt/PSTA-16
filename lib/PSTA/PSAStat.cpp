@@ -2,12 +2,12 @@
 // Created by Xiao on 2022/3/25.
 //
 
-#include "PSAStat.h"
-#include "PSAOptions.h"
+#include "PSTA/PSAStat.h"
+#include "PSTA/PSAOptions.h"
 #include <fstream>
 #include <numeric>
 #include <queue>
-#include "Logger.h"
+#include "PSTA/Logger.h"
 
 using namespace SVF;
 using namespace SVFUtil;

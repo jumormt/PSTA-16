@@ -5,7 +5,7 @@
 #include "Slicing/GraphSparsificator.h"
 #include "SABER/SaberSVFGBuilder.h"
 #include "PSTA/PSAOptions.h"
-#include "ControlDGBuilder.h"
+#include "Slicing/ControlDGBuilder.h"
 #include "PSTA/PSAStat.h"
 #include "Util/SVFUtil.h"
 #include "PSTA/Logger.h"

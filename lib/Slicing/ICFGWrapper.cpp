@@ -2,7 +2,7 @@
 // Created by Xiao on 4/17/2022.
 //
 
-#include "ICFGWrapper.h"
+#include "Slicing/ICFGWrapper.h"
 
 using namespace SVF;
 using namespace SVFUtil;

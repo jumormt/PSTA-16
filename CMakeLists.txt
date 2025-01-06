@@ -14,7 +14,7 @@ else()
     set(PROJECT_SOURCE_ROOT "${CMAKE_INSTALL_PREFIX}")
 endif()
 message("project source root: ${PROJECT_SOURCE_ROOT}")
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.in include/PSTA/config.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.in ${CMAKE_CURRENT_SOURCE_DIR}/include/PSTA/config.h @ONLY)
 
 # Check if the LLVM_DIR environment variable is defined and set it accordingly
 if (DEFINED LLVM_DIR)
@@ -140,8 +140,6 @@ message(STATUS "SVF STATUS:
 
 
 # Define the actual runtime executable
-llvm_map_components_to_libnames(llvm_libs bitwriter core ipo irreader instcombine instrumentation target linker analysis scalaropts support )
-
 
 # If the SVF CMake package was found, show how to use some "modern" features of this approach; otherwise use old system
 if("${SVF_FOUND}")

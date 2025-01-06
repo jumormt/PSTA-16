@@ -1,11 +1,11 @@
 
 # 1.Basic Usage
 
-## Dependencies
+## 1.1.Dependencies
 
 - SVF: https://github.com/jumormt/SVF-xiao/tree/fse/
 
-## Build
+## 1.2.Build
 
 ```shell
 mkdir build
@@ -17,26 +17,107 @@ cmake --build . --target install
 
 The arguments `SVF_DIR, LLVM_DIR, Z3_DIR` can be removed if they are configured in environment variables.
 
-## RUN
+## 1.3.RUN
 
-detect memory leak
+Detect memory leak
 
 ```shell
 psta -leak /path/to/bc
 ```
 
-## Test
+Given following program:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Student {
+    int num;
+    float score;
+    void *data;
+} Student;
+
+int main() {
+    Student* s1 = (Student*)malloc(sizeof(Student));
+    s1->num = 10;
+    s1->score = 100;
+    s1->data = malloc(10);
+
+    int num = s1->num;
+    float score = s1->score;
+    void* data = s1->data;
+
+    free(s1);
+    return 0;
+}
+```
+
+Using command `clang -emit-llvm -S -g -fno-discard-value-names -Xclang -no-opaque-pointers test.c` to compile and use before command to run leak detector, following problem will be reported:
+
+```
+${SVF statistics}
+         NeverFree : memory allocation at : ({ "ln": 14, "cl": 16, "fl": "test.c
+" })
+
+*********leak***************
+################ (program : /home/cbj/projects/experiments/testcases/test4/test)
+###############
+Cxt Alias                     1
+OTF Alias                     0
+Cxt Limit                     3
+Multi Slicing                 0
+Enable Spatial Slicing        1
+Enable Temporal Slicing       1
+Enable Isolated Summary       0
+Snk Limit                     10
+Max Z3 Size                   30
+Max PI Size                   100
+Max Step In Wrapper           10
+Spatial Layer Num             0
+-------------------------------------------------------
+SrcNum                        2
+AbsState Domain Size          4
+Var Avg Num                   0
+Loc Avg Num                   0
+Var Addr Avg Num              1
+Loc Addr Avg Num              0
+Var AddrSet Avg Size          0
+Loc AddrSet Avg Size          0
+Info Map Avg Size             6
+Summary Map Avg Size          1
+Graph Avg Node Num            7
+Graph Avg Edge Num            6
+Tracking Branch Avg Num       0
+ICFG Node Num                 50
+ICFG Edge Num                 40
+Branch Num                    0
+Callsites Avg Num             0
+Spatial Avg Num               6
+Bug Num                       1
+-------------------------------------------------------
+InitSrc                       0s
+InitAbsTransferFunc           0s
+Solve                         0.001s
+Compact Graph Time            0s
+WrapICFGTime                  0s
+Collecting Call Time          0s
+Tracking Branch Time          0s
+TotalTime                     0.005s
+Memory usage: 102836KB
+#######################################################
+```
+
+## 1.4.Test
 
 ```sh
 cd build
 ctest -j8
 ```
 
-## RUN
 
 
 
-# References
+# 2.References
 
 > [[1].Cheng X, Ren J, Sui Y. Fast Graph Simplification for Path-Sensitive Typestate Analysis through Tempo-Spatial Multi-Point Slicing[J]. Proceedings of the ACM on Software Engineering, 2024, 1(FSE): 494-516.](https://dl.acm.org/doi/pdf/10.1145/3643749)
 

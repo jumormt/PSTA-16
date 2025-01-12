@@ -15,14 +15,30 @@ cmake --build . -j 16
 cmake --build . --target install
 ```
 
-The arguments `SVF_DIR, LLVM_DIR, Z3_DIR` can be removed if they are configured in environment variables.
+The arguments `SVF_DIR, LLVM_DIR, Z3_DIR` can be removed if they are configured in environment variables. 
+
+For LLVM, when building it, its recommended to add option `-DLLVM_LINK_LLVM_DYLIB=ON` to build dynamic lib to make it less likely to encounter error like duplicated definition of symbol `llvm::opt...`.
+
+For SVF, its recommended to replace the line `#define STATIC_OBJECT malloc(10)` in extapi.c with following contents to reduce the false positive memory leak report.
+
+```cpp
+#include <alloca.h>
+
+#define STATIC_OBJECT alloca(10)
+```
 
 ## 1.3.RUN
 
-Detect memory leak
-
 ```shell
+# detect memory leak
 psta -leak /path/to/bc
+# detect double free
+psta -df /path/to/bc
+# detect use after free
+pst -uaf /path/to/bc
+
+# detect memory leak while not use graph simplification for psta, not recommended
+psta -base -leak /path/to/bc
 ```
 
 Given following program:
@@ -115,9 +131,23 @@ ctest -j8
 ```
 
 
+# 2.Options
+
+In [main function](tools/psta.cpp), we add options for `-model-consts=true -model-arrays=true -pre-field-sensitive=false -ff-eq-base -field-limit=16`,
+indicating we treat each constant as independent object, and model each array item, also treating the first field of a memory object as identical to the object.
+
+| option | meaning | default |
+| ---- | ---- | ---- |
+| `-leak` | Whether to detect memory leak | `false` |
+| `-df` | Whether to detect double free | `false` |
+| `-uaf` | Whether to detect use after free | `false` |
+| `-base` | Use base typestate analysis, not to use graph simplification proposed in reference [1] | `false` |
+| `-path-sensitive` | use path sensitive type state analysis | `true` |
+| `-spatial` | enable SMS when slicing, must be enabled with `-base=false` | `true` |
+| `-temporal` | enable TMS when slicing, must be enabled with `-base=false` | `true` |
 
 
-# 2.References
+# 3.References
 
 > [[1].Cheng X, Ren J, Sui Y. Fast Graph Simplification for Path-Sensitive Typestate Analysis through Tempo-Spatial Multi-Point Slicing[J]. Proceedings of the ACM on Software Engineering, 2024, 1(FSE): 494-516.](https://dl.acm.org/doi/pdf/10.1145/3643749)
 

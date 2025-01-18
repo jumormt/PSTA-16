@@ -153,6 +153,15 @@ if("${SVF_FOUND}")
         message(FATAL_ERROR "SVF & LLVM exceptions support mismatch (SVF: ${SVF_ENABLE_EXCEPTIONS}, LLVM: ${LLVM_ENABLE_EH})!")
     endif()
 
+    file(GLOB SVF_SHARED_LIBS "${SVF_INSTALL_LIB_DIR}/*.so" "${SVF_INSTALL_LIB_DIR}/*.dylib" "${SVF_INSTALL_LIB_DIR}/*.dll")
+    if(SVF_SHARED_LIBS)
+        set(SVF_BUILD_STATIC OFF)
+    else()
+        set(SVF_BUILD_STATIC ON)
+    endif()
+
+    message(STATUS "SVF_BUILD_STATIC:                  ${SVF_BUILD_STATIC}")
+
     # Include SVF's include directories for all targets & include the library directories to find the library objects
     include_directories(SYSTEM ${SVF_INSTALL_INCLUDE_DIR})
     link_directories(${SVF_INSTALL_LIB_DIR})
@@ -163,6 +172,20 @@ else()
 endif()
 
 set(SVF_LIB SvfLLVM SvfCore)
+
+# zstd
+if(NOT LLVM_LINK_LLVM_DYLIB AND SVF_BUILD_STATIC)
+    if(DEFINED ZSTD_PATH)
+        message("searching ZSTD in: ${ZSTD_PATH}")
+        # If ZSTD_PATH is defined, look for zstd in that directory
+        find_library(ZSTD_LIBRARIES NAMES zstd HINTS ${ZSTD_PATH}/lib)
+    else()
+        # If ZSTD_PATH is not defined, look for zstd in system paths
+        find_library(ZSTD_LIBRARIES NAMES zstd)
+    endif()
+    message("--find zstd lib: ${ZSTD_LIBRARIES}")
+    message("--find zstd include: ${ZSTD_INCLUDE_DIRS}")
+endif()
 
 # Find Z3 and its include directory from the top-level include file
 find_library(

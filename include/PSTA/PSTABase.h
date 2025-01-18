@@ -10,9 +10,9 @@
 #include "WPA/Andersen.h"
 #include "SVF-LLVM/LLVMUtil.h"
 #include "PSTA/FSMHandler.h"
-#include "AE/Svfexe/SVFIR2ConsExeState.h"
-#include "AE/Core/SymState.h"
+#include "PSTA/SVFIR2ConsExeState.h"
 #include "PSTA/PSAOptions.h"
+#include "Bases/SymState.h"
 #include "SVF-LLVM/LLVMModule.h"
 
 namespace SVF {

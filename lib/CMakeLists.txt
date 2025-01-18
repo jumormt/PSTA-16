@@ -2,11 +2,18 @@ file(GLOB SOURCES
         Detectors/*.cpp
         Slicing/*.cpp
         PSTA/*.cpp
+        Bases/*.cpp
         )
 
 add_library(PstaCore SHARED ${SOURCES})
-message("linking PstaCore to: ${SVF_LIB},  ${llvm_libs},  ${Z3_LIBRARIES}")
-target_link_libraries(PstaCore ${SVF_LIB} ${llvm_libs} ${Z3_LIBRARIES})
+if(DEFINED ZSTD_LIBRARIES)
+    message("linking PstaCore to: ${SVF_LIB},  ${llvm_libs},  ${Z3_LIBRARIES},  ${ZSTD_LIBRARIES}")
+    target_link_libraries(PstaCore ${SVF_LIB} ${llvm_libs} ${Z3_LIBRARIES} ${ZSTD_LIBRARIES})
+else()
+    message("linking PstaCore to: ${SVF_LIB},  ${llvm_libs},  ${Z3_LIBRARIES}")
+    target_link_libraries(PstaCore ${SVF_LIB} ${llvm_libs} ${Z3_LIBRARIES})
+endif()
+
 set_target_properties(PstaCore PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
         ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib

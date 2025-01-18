@@ -3,7 +3,8 @@
 
 ## 1.1.Dependencies
 
-- SVF: https://github.com/jumormt/SVF-xiao/tree/fse/
+[SVF](https://github.com/SVF-tools/SVF), [LLVM](https://github.com/llvm/llvm-project).
+Tested with SVF-3.0 (Also with this branch [SVF-xiao](https://github.com/jumormt/SVF-xiao/tree/fse)) and LLVM-15.0.0 (may be work with LLVM-16.0.0).
 
 ## 1.2.Build
 
@@ -19,7 +20,9 @@ The arguments `SVF_DIR, LLVM_DIR, Z3_DIR` can be removed if they are configured 
 
 For LLVM, when building it, its recommended to add option `-DLLVM_LINK_LLVM_DYLIB=ON` to build dynamic lib to make it less likely to encounter error like duplicated definition of symbol `llvm::opt...`.
 
-For SVF, its recommended to replace the line `#define STATIC_OBJECT malloc(10)` in extapi.c with following contents to reduce the false positive memory leak report.
+Also for SVF, its recommended to build dynamic libs by add option `-DBUILD_SHARED_LIBS=on` to avoid duplicated option errors and replace the line `#define STATIC_OBJECT malloc(10)` in extapi.c with following contents to reduce the false positive memory leak report.
+
+Considering LLVM dependes on zstd, if LLVM and SVF both are statically built, we need to link PSTACore to zstd.
 
 ```cpp
 #include <alloca.h>
@@ -31,14 +34,14 @@ For SVF, its recommended to replace the line `#define STATIC_OBJECT malloc(10)` 
 
 ```shell
 # detect memory leak
-psta -leak /path/to/bc
+psta -memleak /path/to/bc
 # detect double free
 psta -df /path/to/bc
 # detect use after free
 pst -uaf /path/to/bc
 
 # detect memory leak while not use graph simplification for psta, not recommended
-psta -base -leak /path/to/bc
+psta -base -memleak /path/to/bc
 ```
 
 Given following program:
@@ -138,16 +141,21 @@ indicating we treat each constant as independent object, and model each array it
 
 | option | meaning | default |
 | ---- | ---- | ---- |
-| `-leak` | Whether to detect memory leak | `false` |
+| `-memleak` | Whether to detect memory leak | `false` |
 | `-df` | Whether to detect double free | `false` |
 | `-uaf` | Whether to detect use after free | `false` |
 | `-base` | Use base typestate analysis, not to use graph simplification proposed in reference [1] | `false` |
-| `-path-sensitive` | use path sensitive type state analysis | `true` |
+| `-path-sensitive` | use path sensitive type state analysis, if disabled, PSTA will ignore execution state when traversing ICFG, which will makes the condtion solving more imprecise. | `true` |
 | `-spatial` | enable SMS when slicing, must be enabled with `-base=false` | `true` |
 | `-temporal` | enable TMS when slicing, must be enabled with `-base=false` | `true` |
+| `-load-as-use` | mark all `load` instruction as use operation, this would make UAF detector more sound but more costly. | `false` |
+| `-otf-alias` | use pointer information stored in execution state to do typestate analysis instead of using pre-computed Andersen-style pointer analysis results. This indicated using a flow-sensitive and partial path-sensitive pointer analysis. | `false` |
 
+# 3.Workflow
 
-# 3.References
+For base path-sensitive typestate analysis, you can refer to [ESP.md](docs/ESP.md)
+
+# 4.References
 
 > [[1].Cheng X, Ren J, Sui Y. Fast Graph Simplification for Path-Sensitive Typestate Analysis through Tempo-Spatial Multi-Point Slicing[J]. Proceedings of the ACM on Software Engineering, 2024, 1(FSE): 494-516.](https://dl.acm.org/doi/pdf/10.1145/3643749)
 

@@ -8,7 +8,7 @@
 #include <llvm/Support/raw_ostream.h>
 #include "SVFIR/SVFIR.h"
 #include "Slicing/PIState.h"
-#include "AE/Core/SymState.h"
+#include "Bases/SymState.h"
 
 namespace SVF {
 class ICFGNodeWrapper;

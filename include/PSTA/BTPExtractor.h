@@ -7,7 +7,7 @@
 
 #include "Slicing/GraphSparsificator.h"
 #include "Util/Z3Expr.h"
-#include "AE/Core/SymState.h"
+#include "Bases/SymState.h"
 
 namespace SVF {
 

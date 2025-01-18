@@ -83,7 +83,7 @@ const Option<bool> PSAOptions::EnableExtCallSlicing(
         "Enable ext call slicing",
         false);
 const Option<bool> PSAOptions::LEAK(
-        "leak",
+        "memleak",
         "memory leak detector",
         false);
 const Option<bool> PSAOptions::UAF(

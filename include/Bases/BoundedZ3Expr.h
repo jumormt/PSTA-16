@@ -319,8 +319,7 @@ public:
     }
 
     /// Return Numeral
-    inline s64_t getNumeral() const
-    {
+    inline s64_t getNumeral() const {
         if (is_numeral())
         {
             int64_t i;
@@ -345,7 +344,7 @@ public:
         }
     }
 
-    s64_t bvLen() const const {
+    s64_t bvLen() const {
         if(is_infinite()) return (s64_t)Options::MaxBVLen();
         // No overflow
         if(getNumeral() != INT64_MIN && getNumeral() != INT64_MAX) return (s64_t)Options::MaxBVLen();

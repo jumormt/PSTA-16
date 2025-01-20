@@ -9,7 +9,7 @@ tests/result/
 doxygen/
 .idea/
 .vscode/
-src/PSTA/config.h
+include/PSTA/config.h
 !.gitignore
 *~
 *.o
